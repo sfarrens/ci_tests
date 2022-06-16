@@ -1,0 +1,42 @@
+name: Env
+
+on:
+  workflow_dispatch:
+    inputs:
+      wf_option1:
+        description: 'Example option 1'
+        required: true
+        default: true
+        type: boolean
+      wf_option2:
+        description: 'Example option 2'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  env-test:
+    name: Workflow Dispatch Tests
+    runs-on: ubuntu-latest
+
+    env:
+      job_option1: ${{ inputs.wf_option1 }}
+      job_option2: ${{ inputs.wf_option2 }}
+
+    steps:
+      - name: Check workflow options
+        run: |
+          echo "GH input: ${{ github.event.inputs.wf_option1 }}"
+          echo "GH input: ${{ github.event.inputs.wf_option1 }}"
+          echo "input: ${{ inputs.wf_option1 }}"
+          echo "input: ${{ inputs.wf_option1 }}"
+          echo "env: ${job_option1}"
+          echo "env: ${job_option2}"
+
+      - name:
+        if: if: ${{ inputs.wf_option1 }}
+        run: echo "Running with option 1"
+
+      - name:
+        if: if: ${{ inputs.wf_option2 }}
+        run: echo "Running with option 2"
