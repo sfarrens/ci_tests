@@ -14,12 +14,22 @@ jobs:
       gh_root: https://github.com/CEA-COSMIC/
       tag_path: /archive/refs/tags/
       plugins: pysap-astro==0.0.1 pysap-etomo==0.0.1 pysap-mri==0.4.1
+      sphinx_opts: -t docs/_templates -feTMo docs/source
 
     steps:
-      - name: Try loop
+      - name: Download plug-ins
         run: |
           for _plugin in ${plugins}; do
             plugin_name="$(echo ${_plugin} | awk -F== '{print $1}')"
             plugin_version="$(echo ${_plugin} | awk -F== '{print $2}')"
-            echo "wget ${gh_root}${plugin_name}${tag_path}v${plugin_version}.tar.gz -O ${plugin_name}.tar.gz";
+            wget ${gh_root}${plugin_name}${tag_path}v${plugin_version}.tar.gz -O ${plugin_name}.tar.gz
+          done
+
+      - name: Build API documentation
+        shell: bash -l {0}
+        run: |
+          for _plugin in ${plugins}; do
+            plugin_name="$(echo ${_plugin} | awk -F== '{print $1}')"
+            package_name="$(echo ${plugin_name} | awk -F- '{print $2}')"
+            echo "sphinx-apidoc ${sphinx_opts} ${plugin_name}-*/${package_name}"
           done
