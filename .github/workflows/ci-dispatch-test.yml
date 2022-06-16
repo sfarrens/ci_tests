@@ -26,12 +26,12 @@ jobs:
     steps:
       - name: Check workflow options
         run: |
-          echo "GH input: ${{ github.event.inputs.wf_option1 }}"
-          echo "GH input: ${{ github.event.inputs.wf_option1 }}"
-          echo "input: ${{ inputs.wf_option1 }}"
-          echo "input: ${{ inputs.wf_option1 }}"
-          echo "env: ${job_option1}"
-          echo "env: ${job_option2}"
+          echo "GH input 1: ${{ github.event.inputs.wf_option1 }}"
+          echo "GH input 2: ${{ github.event.inputs.wf_option2 }}"
+          echo "input 1: ${{ inputs.wf_option1 }}"
+          echo "input 2: ${{ inputs.wf_option2 }}"
+          echo "env 1: ${job_option1}"
+          echo "env 2: ${job_option2}"
 
       - name:
         if: ${{ inputs.wf_option1 }}
