@@ -1,0 +1,26 @@
+name: Env
+
+on:
+  push:
+    branches:
+     - env_test
+
+jobs:
+  runs-on: ubuntu-latest
+
+  env:
+    mystr: this is a string
+    obj1: object 1
+    obj2: object 2
+    obj3: object 3
+
+  steps:
+    - name: Check string
+      run: echo ${mystr}
+    - name: Check object 1
+      run: echo ${obj1}
+    - name: Try loop
+      run: |
+        for word in ${mystr}; do
+          echo "The word is: ${word}";
+        done
