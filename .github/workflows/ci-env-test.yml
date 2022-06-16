@@ -19,7 +19,7 @@ jobs:
       - name: Try loop
         run: |
           for _plugin in ${plugins}; do
-            plugin_name="$(echo ${_plugin} | cut -d'=' -f1)"
-            plugin_version="$(echo ${_plugin} | cut -d'=' -f2)"
+            plugin_name="$(echo ${_plugin} | awk -F== '{print $1}')"
+            plugin_version="$(echo ${_plugin} | awk -F== '{print $2}')"
             echo "wget ${gh_root}${plugin_name}${tag_path}v${plugin_version}.tar.gz -O ${plugin_name}.tar.gz";
           done
