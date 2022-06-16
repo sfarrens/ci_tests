@@ -11,18 +11,15 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      mystr: this is a string
-      obj1: object 1
-      obj2: object 2
-      obj3: object 3
+      gh_root: https://github.com/CEA-COSMIC/
+      tag_path: /archive/refs/tags/
+      plugins: pysap-astro==0.0.1 pysap-etomo==0.0.1 pysap-mri==0.4.1
 
     steps:
-      - name: Check string
-        run: echo ${mystr}
-      - name: Check object 1
-        run: echo ${obj1}
       - name: Try loop
         run: |
-          for word in ${mystr}; do
-            echo "The word is: ${word}";
+          for _plugin in ${plugins}; do
+            plugin_name="$(echo ${_plugin} | cut -d'=' -f1)"
+            plugin_version="$(echo ${_plugin} | cut -d'=' -f2)"
+            echo "wget ${gh_root}${plugin_name}${tag_path}v${plugin_version}.tar.gz -O ${plugin_name}.tar.gz";
           done
