@@ -13,7 +13,7 @@ jobs:
     env:
       gh_root: https://github.com/CEA-COSMIC/
       tag_path: /archive/refs/tags/
-      plugins: pysap-astro==0.0.1 pysap-etomo==0.0.1 pysap-mri==0.4.1
+      plugins: pysap-astro==0.0.1 pysap-etomo==0.0.1 pysap-mri==0.4.0
       sphinx_opts: -t docs/_templates -feTMo docs/source
 
     steps:
@@ -33,3 +33,8 @@ jobs:
             package_name="$(echo ${plugin_name} | awk -F- '{print $2}')"
             echo "sphinx-apidoc ${sphinx_opts} ${plugin_name}-*/${package_name}"
           done
+
+      - name: Check files
+        run: |
+          pwd
+          ls
