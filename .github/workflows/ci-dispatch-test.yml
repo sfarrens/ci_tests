@@ -34,9 +34,9 @@ jobs:
           echo "env: ${job_option2}"
 
       - name:
-        if: if: ${{ inputs.wf_option1 }}
+        if: ${{ inputs.wf_option1 }}
         run: echo "Running with option 1"
 
       - name:
-        if: if: ${{ inputs.wf_option2 }}
+        if: ${{ inputs.wf_option2 }}
         run: echo "Running with option 2"
